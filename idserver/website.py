@@ -18,6 +18,7 @@ def index():
 
 @app.route('/card_id.json')
 def card_id():
+    response = None
     try:
         for reader in readers():
             try:
@@ -25,12 +26,17 @@ def card_id():
                 connection.connect()
                 response, sw1, sw2 = connection.transmit(GET_ID)
                 tag = toHexString(response).replace(" ", "")
-                return jsonp(card_id=tag)
+                response = jsonp(card_id=tag)
             except (NoCardException, CardConnectionException):
-                return jsonp(card_id=None, error='no_card')
+                response = jsonp(card_id=None, error='no_card')
     except EstablishContextException:
-        return jsonp(card_id=None, error='no_pcscd')
-    return jsonp(card_id=None, error='no_reader')
+        response = jsonp(card_id=None, error='no_pcscd')
+    if response is None:
+        response = jsonp(card_id=None, error='no_reader')
+
+    response.headers['Cache-Control'] = 'no-store'
+    response.headers['Pragma'] = 'no-cache'
+    return response
 
 
 if __name__ == '__main__':
