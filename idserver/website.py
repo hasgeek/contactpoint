@@ -26,6 +26,8 @@ def card_id():
                 connection.connect()
                 response, sw1, sw2 = connection.transmit(GET_ID)
                 tag = toHexString(response).replace(" ", "")
+                if len(tag)<8:
+                    response = jsonp(card_id=None, error='invalid_id')
                 response = jsonp(card_id=tag)
             except (NoCardException, CardConnectionException):
                 response = jsonp(card_id=None, error='no_card')
