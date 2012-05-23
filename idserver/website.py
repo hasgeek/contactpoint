@@ -46,10 +46,11 @@ def card_id():
 
 @app.route('/print/<name>/<twitter>', methods=['POST'])
 def label(name, twitter):
-    c = canvas.Canvas(name.split()[0]+".pdf", pagesize=(90*mm, 29*mm))
-    c.drawCentredString(45*mm, 20*mm, name);
-    c.setFontSize(10)
-    c.drawCentredString(45*mm, 15*mm, twitter);
+    c = canvas.Canvas(name.split()[0]+".pdf", pagesize=(70*mm, 29*mm))
+    c.setFontSize(18)
+    c.drawCentredString(35*mm, 18*mm, name);
+    c.setFontSize(13)
+    c.drawCentredString(35*mm, 12*mm, twitter);
     c.showPage()
     try:
         c.save()
