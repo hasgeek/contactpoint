@@ -8,7 +8,7 @@ from coaster.views import jsonp
 
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import mm
-
+from os import popen
 
 GET_ID = [0xFF, 0xCA, 0x00, 0x00, 0x04]  # Get serial number for Mifare NFC
 
@@ -46,13 +46,14 @@ def card_id():
 
 @app.route('/print/<name>/<twitter>', methods=['POST'])
 def label(name, twitter):
-    c = canvas.Canvas(name, pagesize=(90*mm, 29*mm))
+    c = canvas.Canvas(name.split()[0]+".pdf", pagesize=(90*mm, 29*mm))
     c.drawCentredString(45*mm, 20*mm, name);
     c.setFontSize(10)
     c.drawCentredString(45*mm, 15*mm, twitter);
     c.showPage()
     try:
         c.save()
+        popen("lpr "+name.split()[0]+".pdf")
         return "success"
     except:
         return "fail"
