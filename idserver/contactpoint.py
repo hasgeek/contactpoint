@@ -5,12 +5,12 @@ from smartcard.CardMonitoring import CardMonitor
 
 class ContactPoint:
     """
-    TaggCentral is the central class of the application.
+    ContactPoint is the central class of the application.
     """
     debug = False
     local_config = {}
     listening = False
-    
+
     def __init__(self, debug = False):
         '''
         Initialises the debug mode, logger, loads the last state of the
@@ -32,8 +32,8 @@ class ContactPoint:
         '''
         self.logger.debug("Card tapped: " + tag)
         self.server.send_msg('tap', dict(tap = tag))
-        
-    def init_emulator(self):        
+
+    def init_emulator(self):
         '''
         If the application is running in development mode, the process method is
         aliased as emulate too. This is for nomenclature convenience. This function
@@ -41,7 +41,7 @@ class ContactPoint:
         '''
         if self.debug is True:
             self.emulate = self.process
-    
+
     def listen(self):
         '''
         The listen function is called during initialisation of the class & the
