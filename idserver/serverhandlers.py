@@ -17,6 +17,20 @@ class WebHandler(web.RequestHandler):
     def initialize(self, CP):
         self.CP = CP
 
+#Reference: http://stackoverflow.com/questions/9336392/jsonp-requests-with-tornado
+class JSONPHandler(WebHandler):
+    def write(self, data):
+        self.set_header('Content-Type', 'application/javascript')
+        super(JSONPHandler, self).write('callback(' + json.dumps(data) + ')')
+        '''
+        callback needs to be replaced with the function name that would get called.
+        But, why even get into that if we are implementing WebSockets!? :D
+        '''
+
+class JSONHandler(WebHandler):
+    def write(self, data):
+        self.set_header('Content-Type', 'application/json')
+        super(JSONHandler, self).write(data)
 
 class SocketHandler(websocket.WebSocketHandler):
     def initialize(self, CP, name):
@@ -35,8 +49,9 @@ class SocketHandler(websocket.WebSocketHandler):
         self.write_message(message)
 
 
-class WebCardId(WebHandler):
+class WebCardId(JSONPHandler):
     def get(self):
+        GET_ID=[0xFF, 0xCA, 0x00, 0x00, 0x04] #Get Serial Number
         response = None
         try:
             for reader in readers():
@@ -49,14 +64,14 @@ class WebCardId(WebHandler):
                         response = dict(card_id=None, error='invalid_id')
                     response = dict(card_id=tag)
                 except (NoCardException, CardConnectionException):
-                    response = jsonp(card_id=None, error='no_card')
+                    response = dict(card_id=None, error='no_card')
         except EstablishContextException:
             response = dict(card_id=None, error='no_pcscd')
         if response is None:
             response = dict(card_id=None, error='no_reader')
 
-        #response.headers['Cache-Control'] = 'no-store'
-        #response.headers['Pragma'] = 'no-cache'
+        self.set_header("Pragma", "no-cache")
+        self.set_header("Cache-Control", "no-store")
         self.write(json.dumps(response))
 
 class WebPrintTwitter(WebHandler):
@@ -75,10 +90,10 @@ class WebPrintTwitter(WebHandler):
             self.write("fail")
 
 
-class WebEmulate(WebHandler):
+class WebEmulate(JSONHandler):
     def get(self):
         self.CP.emulate(self.get_argument('tag'))
-        self.write(jsonp(True))
+        self.write(json.dumps(True))
 
 
 class SocketListenTaps(SocketHandler):

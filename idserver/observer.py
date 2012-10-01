@@ -7,8 +7,8 @@ GET_ID=[0xFF, 0xCA, 0x00, 0x00, 0x04] #Get Serial Number
 class Observer( CardObserver ):
     "This is notified with card events"
     
-    def __init__(self, server):
-        self.server = server
+    def __init__(self, CP):
+        self.CP = CP
 
     def update( self, observable, (addedcards, removedcards) ):
         
@@ -19,6 +19,6 @@ class Observer( CardObserver ):
                 response, sw1, sw2 = card.connection.transmit( GET_ID )
                 card.connection.disconnect()
                 tag = toHexString(response).replace(" ","")
-                self.server.process(tag)
+                self.CP.process(tag)
             except Exception as e:
                 pass

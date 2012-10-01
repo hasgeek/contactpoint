@@ -31,7 +31,7 @@ class ContactPoint:
         card, it queues it up to be processed for making an action API call.
         '''
         self.logger.debug("Card tapped: " + tag)
-        self.server.send_msg('tap', dict(tap = tag))
+        self.server.send_msg('listen_taps', dict(card_id = tag))
 
     def init_emulator(self):
         '''

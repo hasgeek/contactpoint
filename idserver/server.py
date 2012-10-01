@@ -16,18 +16,17 @@ class Server(web.Application):
         handlers = [
             (r"/card_id.json", WebCardId, dict(CP = CP)),
             (r"/print/(.*)/(.*)", WebPrintTwitter, dict(CP = CP)),
-            (r"/listen_taps", SocketListenTaps, dict(CP = CP, name = 'listen_taps'))
+            (r"/listen_taps", SocketListenTaps, dict(CP = CP, name = 'listen_taps')),
+            (r"/assets/(.*)", web.StaticFileHandler, {"path": os.path.join(os.path.dirname(__file__), "assets")})
         ]
 
         if debug:
             handlers.append((r"/emulate", WebEmulate, dict(CP = CP)))
-        
         return super(Server, self).__init__(
             handlers = handlers,
             default_host = host,
             debug = debug,
             template_path = os.path.join(os.path.dirname(__file__), "templates"),
-            static_path = os.path.join(os.path.dirname(__file__), "static"),
             cookie_secret = hashlib.md5('server_cookie_data_asfjanfjdnf').hexdigest(),
             login_url = '/'
         )
