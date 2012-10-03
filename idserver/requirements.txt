@@ -1,2 +1,5 @@
 Flask
 https://github.com/hasgeek/coaster/zipball/master
+tornado
+python-pyscard
+libacr38u
