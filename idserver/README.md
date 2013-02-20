@@ -8,3 +8,8 @@ Installation
 6. `make`
 7. `make install`
 
+Running
+=====
+1. copy `env.sample.py` to `env.py`
+2. `python app.py`
+
