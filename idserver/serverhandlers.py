@@ -38,6 +38,8 @@ class SocketHandler(websocket.WebSocketHandler):
         self.name = name
 
     def open(self):
+        if hasattr(self.application, 'clients') is False:
+            self.application.clients = {}
         if self.name not in self.application.clients:
             self.application.clients[self.name] = []
         self.application.clients[self.name].append(self)
