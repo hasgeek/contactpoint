@@ -41,5 +41,7 @@ class Server(web.Application):
             self.CP.logger.log('Error in starting server: ' + e.message)
 
     def send_msg(self, to, msg):
+        if to not in self.clients:
+            self.clients[to] = []
         for client in self.clients[to]:
             client.write_message(msg)

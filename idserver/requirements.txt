@@ -1,3 +1,10 @@
+BeautifulSoup
 Flask
-https://github.com/hasgeek/coaster/zipball/master
+Jinja2
+SQLAlchemy
+Werkzeug
+coaster
+reportlab
+simplejson
 tornado
+wsgiref
