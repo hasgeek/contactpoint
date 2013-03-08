@@ -1,17 +1,8 @@
 /*
-lib.js can be a file that can be loaded from all applications that want to
+lib.js is a file that can be loaded from all applications that want to
 subscribe to an RFID tap.
-I felt that this should also be protected from who can subscribe to WS that
-pushes RFID taps.
-As of now, the continuous polling that's happening validates that with jsonp.
-Right now, I am keeping this open while it is in Proof of Concept.
-
-@jace & @geohacker: you would be in a better position to take a call on how
-to make this secure
-
-After loading this file, you are needed to assign the action that will be
-executed on tap, by att
-
+After loading this file, take the action that will be
+executed on tap, in the following manner:
 $(window).on('tap:received', function(e, data) {
     //...do my stuff and do it well...
 });
