@@ -1,3 +1,6 @@
+import instance.env
+from os import environ
+
 from observer import Observer
 from logger import Logger
 from server import Server
@@ -11,17 +14,20 @@ class ContactPoint:
     local_config = {}
     listening = False
 
-    def __init__(self, debug = False):
+    def __init__(self):
         '''
         Initialises the debug mode, logger, loads the last state of the
         application, and performs an initial system synchronisation from the
         cloud.
         '''
-        self.debug = debug
+        self.env = environ['CONTACTPOINT_ENV']
+        if self.env == 'development':
+            self.debug = True
         self.init_emulator()
-        self.logger = Logger(debug)
+        self.logger = Logger(self.debug)
         self.logger.log('System started...')
-        self.server = Server(self, debug)
+        self.server = Server(self, self.debug)
+        self.listen()
 
     def process(self, tag):
         '''
