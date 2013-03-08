@@ -5,6 +5,7 @@ class Logger:
     '''The Logger class handles logging & displaying of debug messages''' 
     
     debugging = False
+    LOG_PATH = 'instance/logs'
     
     def __init__(self, debugging = False):
         '''
@@ -13,7 +14,7 @@ class Logger:
         '''
         self.debugging = debugging
         if debugging is True:
-            f = open('l', 'w')
+            f = open(self.LOG_PATH, 'w')
             f.close
     
     def debug(self, msg = ''):
@@ -33,7 +34,7 @@ class Logger:
         '''
         if msg == '':
             return
-        with open('l', 'a+') as f:
+        with open(self.LOG_PATH, 'a+') as f:
             f.write(time.strftime('%x %X %Z ') + msg + '\n')
             f.close
         self.debug(msg)
