@@ -6,5 +6,6 @@ Installation
 
 Running
 =====
-1. copy `env.sample.py` to `env.py`
+1. Copy `instance/env.sample.py` to `instance/env.py`
+2. If you want to run the application in development environment, change the environment in `instance/env.py`
 2. `./runserver.py` or `python runserver.py`
