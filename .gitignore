@@ -1,8 +1,5 @@
 .DS_Store
 *.pyc
-*.pdf
-env.py
-l
+instance/env.py
+instance/logs
 venv/
-idserver/pcsc-lite-1.8.8/*
-idserver/ACR122_Driver_Lnx_Mac10.5_10.6_10.7_104_P/*
