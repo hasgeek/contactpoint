@@ -34,7 +34,7 @@ class ContactPoint:
         '''
         response = dict(action=action)
         if tag_id is not None:
-            response['card_id'] = tag_id
+            response['tag_id'] = tag_id
         self.logger.debug(response)
         self.server.send_msg('listen_taps', response)
 

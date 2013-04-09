@@ -19,13 +19,13 @@ function ReconnectingWebSocket(a){function f(g){c=new WebSocket(a);if(b.debug||R
   	var taps = new ReconnectingWebSocket("ws://127.0.0.1:8008/listen_taps");
   	taps.onmessage = function(evt) {
       var d = JSON.parse(evt.data);
-      $(window).trigger('tap:received', d);
+      $(window).trigger('rfid:action', d);
     };
     taps.onopen = function() {
-      $(window).trigger('rfid:active');
+      $(window).trigger('rfid:server_active');
     };
   	taps.onclose = function() {
-      $(window).trigger('rfid:inactive');
+      $(window).trigger('rfid:server_inactive');
     };
     taps.onerror = function (evt) {
       console.log("Error:", evt);
