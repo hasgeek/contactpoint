@@ -2,6 +2,7 @@ import os
 from serverhandlers import *
 import hashlib
 from tornado import ioloop
+import simplejson as json
 
 class Server(web.Application):
     clients = {}

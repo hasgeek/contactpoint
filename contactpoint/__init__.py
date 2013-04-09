@@ -27,13 +27,16 @@ class ContactPoint:
         self.server = Server(self, self.debug)
         self.listen()
 
-    def process(self, tag):
+    def process(self, action, tag_id=None):
         '''
-        The process function is called each time a card is tapped onto the
+        The process function is called each time an action happens on the RFID
         reader.
         '''
-        self.logger.debug("Card tapped: " + tag)
-        self.server.send_msg('listen_taps', dict(card_id = tag))
+        response = dict(action=action)
+        if tag_id is not None:
+            response['card_id'] = tag_id
+        self.logger.debug(response)
+        self.server.send_msg('listen_taps', response)
 
     def init_emulator(self):
         '''
