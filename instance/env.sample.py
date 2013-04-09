@@ -1,5 +1,7 @@
+from os import environ
+
 '''
-    env
+    environ['CONTACTPOINT_ENV']
     Possible values:
         - 'development'
         - 'production'
@@ -7,9 +9,4 @@
     In development environment, the app will run in debug mode.
     
 '''
-env = 'production'
-
-if env is 'development':
-    shud_i_debug = True
-elif env is 'production':
-    shud_i_debug = False
+environ['CONTACTPOINT_ENV'] = 'production'
