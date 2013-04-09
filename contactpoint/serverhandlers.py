@@ -9,16 +9,6 @@ class WebHandler(web.RequestHandler):
     def initialize(self, CP):
         self.CP = CP
 
-#Reference: http://stackoverflow.com/questions/9336392/jsonp-requests-with-tornado
-# class JSONPHandler(WebHandler):
-#     def write(self, data):
-#         self.set_header('Content-Type', 'application/javascript')
-#         super(JSONPHandler, self).write('callback(' + json.dumps(data) + ')')
-#         '''
-#         callback needs to be replaced with the function name that would get called.
-#         But, why even get into that if we are implementing WebSockets!? :D
-#         '''
-
 class JSONHandler(WebHandler):
     def write(self, data):
         self.set_header('Content-Type', 'application/json')
