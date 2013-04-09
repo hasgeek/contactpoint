@@ -16,9 +16,7 @@ class ContactPoint:
 
     def __init__(self):
         '''
-        Initialises the debug mode, logger, loads the last state of the
-        application, and performs an initial system synchronisation from the
-        cloud.
+        Initialises the debug mode, logger.
         '''
         self.env = environ['CONTACTPOINT_ENV']
         if self.env == 'development':
@@ -32,9 +30,7 @@ class ContactPoint:
     def process(self, tag):
         '''
         The process function is called each time a card is tapped onto the
-        reader. It identifies if the card is an admin. If it is an admin card,
-        it pushes this data forward to clients, if any. If it not an admin
-        card, it queues it up to be processed for making an action API call.
+        reader.
         '''
         self.logger.debug("Card tapped: " + tag)
         self.server.send_msg('listen_taps', dict(card_id = tag))
@@ -42,8 +38,9 @@ class ContactPoint:
     def init_emulator(self):
         '''
         If the application is running in development mode, the process method is
-        aliased as emulate too. This is for nomenclature convenience. This function
-        shall be called as emulate, to emulate card taps in development mode.
+        aliased as emulate too. This is for nomenclature convenience. This
+        function shall be called as emulate, to emulate card taps in development
+        mode.
         '''
         if self.debug is True:
             self.emulate = self.process
@@ -51,8 +48,8 @@ class ContactPoint:
     def listen(self):
         '''
         The listen function is called during initialisation of the class & the
-        application. It initialises the process of starting to listen to card taps
-        on the reader.
+        application. It initialises the process of starting to listen to card
+        taps on the reader.
         '''
         self.monitor = CardMonitor()
         self.observer = Observer(self)

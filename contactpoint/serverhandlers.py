@@ -1,11 +1,8 @@
 from tornado import web, websocket
-
 from smartcard.Exceptions import NoCardException, CardConnectionException
 from smartcard.pcsc.PCSCExceptions import EstablishContextException
 from smartcard.System import readers
 from smartcard.util import toHexString
-
-#Importing json to make this work right now. Not delving deeper into coaster's jsonp as of now.
 import simplejson as json
 
 class WebHandler(web.RequestHandler):
