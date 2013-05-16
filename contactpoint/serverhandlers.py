@@ -31,7 +31,8 @@ class SocketHandler(websocket.WebSocketHandler):
 
 class WebEmulate(JSONHandler):
     def get(self):
-        self.CP.emulate(self.get_argument('tag'))
+        self.CP.emulate('tag_placed', self.get_argument('tag'))
+        self.CP.emulate('tag_removed', self.get_argument('tag'))
         self.write(json.dumps(True))
 
 
