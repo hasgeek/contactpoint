@@ -2,6 +2,7 @@ import os
 from serverhandlers import *
 import hashlib
 from tornado import ioloop
+import simplejson as json
 
 class Server(web.Application):
     clients = {}
@@ -14,8 +15,6 @@ class Server(web.Application):
             host = '127.0.0.1'
 
         handlers = [
-            (r"/card_id.json", WebCardId, dict(CP = CP)),
-            (r"/print/(.*)/(.*)", WebPrintTwitter, dict(CP = CP)),
             (r"/listen_taps", SocketListenTaps, dict(CP = CP, name = 'listen_taps')),
             (r"/assets/(.*)", web.StaticFileHandler, {"path": os.path.join(os.path.dirname(__file__), "assets")})
         ]

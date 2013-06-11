@@ -1,11 +1,9 @@
+#!/usr/bin/env python
 import argparse
-
 from contactpoint import ContactPoint
-from env import shud_i_debug
 
 # Init ContactPoint
-CP = ContactPoint(shud_i_debug)
-CP.listen()
+CP = ContactPoint()
 
 app = CP.server
 
