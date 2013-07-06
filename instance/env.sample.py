@@ -1,4 +1,5 @@
 from os import environ
+import pickle
 
 '''
     environ['CONTACTPOINT_ENV']
