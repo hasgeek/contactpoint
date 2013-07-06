@@ -22,5 +22,5 @@ from os import environ
 '''
 environ['CONTACTPOINT_ENV'] = 'production'
 environ['PEOPLEFLOW_HOSTNAME'] = ''
-environ['REMOTE_SERVERS'] = []
-environ['HOST2IP_PERIOD'] = 60
+environ['REMOTE_SERVERS'] = pickle.dumps([])
+environ['HOST2IP_PERIOD'] = '60'
