@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 import argparse
+import socket
+from os import environ
 from contactpoint import ContactPoint
+from contactpoint.host2ip import start_host2ip
 
 # Init ContactPoint
 CP = ContactPoint()
@@ -11,6 +14,10 @@ app = CP.server
 This initializes the application
 '''
 if __name__ == "__main__":
+
+    if 'PEOPLEFLOW_HOSTNAME' in environ:
+        start_host2ip(CP, 60)
+
     port = 8008
 
     '''
