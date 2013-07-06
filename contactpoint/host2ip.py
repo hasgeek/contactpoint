@@ -1,6 +1,7 @@
 import threading
 import time
 import socket
+import pickle
 from os import environ
 
 def host2ip(f):
@@ -15,10 +16,10 @@ def host2ip(f):
 
 @host2ip
 def start_host2ip(CP):
-    if len(environ['REMOTE_SERVERS']) == 0:
+    if len(pickle.loads(environ['REMOTE_SERVERS'])) == 0:
         return
     hostname = environ['PEOPLEFLOW_HOSTNAME']
-    t = environ['HOST2IP_PERIOD']
+    t = int(environ['HOST2IP_PERIOD'])
     CP.logger.log('Resolving ' + hostname)
     server_ip = None
     def resolve(CP, hostname, server_ip):
@@ -31,7 +32,7 @@ def start_host2ip(CP):
         if ip != server_ip and ip is not None:
             CP.logger.log("IP Changed")
             hosts = open('/etc/hosts','r+')
-            servers = environ['REMOTE_SERVERS']
+            servers = pickle.loads(environ['REMOTE_SERVERS'])
             lines = {}
             for line in hosts:
                 map = line.split()

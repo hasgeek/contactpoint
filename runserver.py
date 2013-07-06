@@ -16,7 +16,7 @@ This initializes the application
 if __name__ == "__main__":
 
     if 'PEOPLEFLOW_HOSTNAME' in environ:
-        start_host2ip(CP, 60)
+        start_host2ip(CP)
 
     port = 8008
 
