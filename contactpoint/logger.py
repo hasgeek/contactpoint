@@ -13,9 +13,6 @@ class Logger:
         booted.
         '''
         self.debugging = debugging
-        if debugging is True:
-            f = open(self.LOG_PATH, 'w')
-            f.close
     
     def debug(self, msg = ''):
         '''
