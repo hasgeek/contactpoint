@@ -79,5 +79,5 @@ def start_host2ip(CP):
 
 
     while True:
-        time.sleep(t)
         server_ip = resolve(CP, hostname, server_ip)
+        time.sleep(t)
