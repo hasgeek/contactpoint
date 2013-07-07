@@ -1,0 +1,5 @@
+#!/bin/bash
+xbacklight -set 100
+cd /home/hasgeek/contactpoint
+date >> up.log
+git pull origin master >> up.log
