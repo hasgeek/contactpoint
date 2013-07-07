@@ -17,11 +17,11 @@ def host2ip(f):
 @host2ip
 def start_host2ip(CP):
     if len(pickle.loads(environ['REMOTE_SERVERS'])) == 0:
-        return
+        return False
     try:
         open('/etc/hosts','r+')
     except:
-        return
+        return False
     hostname = environ['PEOPLEFLOW_HOSTNAME']
     t = int(environ['HOST2IP_PERIOD'])
     CP.logger.log('Resolving ' + hostname)
