@@ -1,5 +1,6 @@
 from tornado import web, websocket
 import simplejson as json
+import re
 
 class WebHandler(web.RequestHandler):
     def initialize(self, CP):
@@ -27,6 +28,9 @@ class SocketHandler(websocket.WebSocketHandler):
 
     def on_message(self, message):
         self.write_message(message)
+
+    def check_origin(self, origin):
+        return bool(re.match(r'.*', origin))
 
 
 class WebEmulate(JSONHandler):
